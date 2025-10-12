@@ -220,14 +220,8 @@ postInfo:
   update: true # 更新日期
   wordCount: true # 文章字数统计
   totalCount: false # 站点总文章字数
-  min2read: false # 文章阅读时长
+  min2read: true # 文章阅读时长
   readCount: true # 文章阅读次数
-
-wordCount:
-  enable: true # 将这个值设置为 true 即可.
-  postWordCount: true
-  min2read: true
-  totalCount: true
 
 # Whether to activate the 'love' effect of clicking on the page.
 # 是否激活点击页面的'爱心'效果，默认激活.
