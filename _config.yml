@@ -5,7 +5,7 @@
 # Site
 title: Mr.G
 subtitle: 'Mr.G 的个人博客'
-description: '路漫漫其修远兮 吾将上下而求索'
+description: '路漫漫其修远兮,吾将上下而求索'
 keywords:
 author: Mr.G
 language: zh-CN
@@ -13,7 +13,7 @@ timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: 'http://localhost:4000'
+url: 'https://mrgbro.github.io'
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
