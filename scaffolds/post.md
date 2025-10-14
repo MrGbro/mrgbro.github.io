@@ -1,5 +1,16 @@
 ---
 title: {{ title }}
 date: {{ date }}
-tags:
+author:    
+img: 
+coverImg: 
+top: false
+cover: false
+toc: false
+mathjax: false
+password:  
+summary: 
+keywords:
+tags: []
+categories: []
 ---
