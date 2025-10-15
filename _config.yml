@@ -6,7 +6,7 @@
 title: Mr.G
 subtitle: 'Mr.G 的个人博客'
 description: '路漫漫其修远兮,吾将上下而求索'
-keywords:
+keywords: ['Java','分布式架构','微服务']
 author: Mr.G
 language: zh-CN
 timezone: ''
@@ -46,7 +46,7 @@ future: true
 syntax_highlighter: highlight.js
 highlight:
   enable: false
-  line_number: true
+  line_number: false
   auto_detect: false
   tab_replace: ''
   wrap: true
@@ -54,7 +54,7 @@ highlight:
 prismjs:
   enable: true
   preprocess: true
-  line_number: true
+  line_number: false
   tab_replace: ''
 
 # Home page setting
