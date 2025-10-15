@@ -1317,7 +1317,9 @@ thead {
 
 .chip-container .chip:hover {
     color: #fff;
-    background: linear-gradient(to right, #4cbf30 0%, #0f9d58 100%) !important;
+    /* background: linear-gradient(to right, #4cbf30 0%, #0f9d58 100%) !important; */
+    /* background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%); */
+    background-image: linear-gradient(to right, #eea2a2 0%, #bbc1bf 19%, #57c6e1 42%, #b49fda 79%, #7ac5d8 100%);
 }
 
 .chip .tag-length {
@@ -1806,7 +1808,8 @@ thead {
 
 .other-skills .chip:hover {
     color: #fff;
-    background: linear-gradient(to right, #4cbf30 0%, #0f9d58 100%);
+    background: linear-gradient(to right, #eea2a2 0%, #bbc1bf 19%, #57c6e1 42%, #b49fda 79%, #7ac5d8 100%);
+    /* background: linear-gradient(to right, #a8edea 0%, #fed6e3 100%); */
     border: 1px solid #4cbf30;
     box-shadow: 0 5px 5px rgba(0, 0, 0, .25)
 }
