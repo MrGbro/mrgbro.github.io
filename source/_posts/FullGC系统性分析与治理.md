@@ -82,8 +82,7 @@ try {
 } finally {
     userContextHolder.remove(); // 必须清理
 }
-```  
-
+```
 - **使用**`**TransmittableThreadLocal**`：在需要父子线程传递上下文的复杂异步场景中，使用阿里开源的 TTL 框架。  
   
 
