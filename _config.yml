@@ -1,10 +1,12 @@
+#server:
+#  port: 6000
 # Hexo Configuration
 ## Docs: https://hexo.io/docs/configuration.html
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
 title: Mr.G
-subtitle: 'Mr.G 的个人博客'
+subtitle: '奔赴山海,保持热爱'
 description: '路漫漫其修远兮,吾将上下而求索'
 keywords: ['Java','分布式架构','微服务']
 author: Mr.G
@@ -63,7 +65,7 @@ prismjs:
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
   path: ''
-  per_page: 12
+  per_page: 6
   order_by: -date
 
 # Category & Tag
@@ -99,8 +101,13 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 # theme: landscape
-theme: hexo-theme-matery
+theme: hexo-theme-next
 
+# 生成 sitemap
+# npm install hexo-generator-sitemap --save
+# npm install hexo-generator-baidu-sitemap --save
+sitemap:
+  path: sitemap.xml
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
@@ -109,3 +116,14 @@ deploy:
 search:
   path: search.xml
   field: post
+  format: html
+  limit: 10
+symbols_count_time:
+  symbols: true
+  time: true
+  total_symbols: true
+  total_time: true
+  exclude_codeblock: false
+  awl: 2
+  wpm: 275
+  suffix: "mins."
