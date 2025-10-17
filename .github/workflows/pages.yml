@@ -1,30 +1,39 @@
-name: Deploy Hexo site to GitHub Pages
+name: Deploy Hexo to GitHub Pages
 
 on:
   push:
     branches:
-      - main
+      - main  # 你的默认分支
+  workflow_dispatch:  # 允许手动触发
+
+permissions:
+  contents: write  # 允许推送到 gh-pages 分支
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: '22'   # 可换成 18/22
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build site
-        run: npx hexo generate
+      - name: Build Hexo site
+        run: |
+          npx hexo clean
+          npx hexo generate
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
+
