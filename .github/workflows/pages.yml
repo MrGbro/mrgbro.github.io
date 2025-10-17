@@ -3,11 +3,11 @@ name: Deploy Hexo to GitHub Pages
 on:
   push:
     branches:
-      - main  # 你的默认分支
-  workflow_dispatch:  # 允许手动触发
+      - main
+  workflow_dispatch:
 
 permissions:
-  contents: write  # 允许推送到 gh-pages 分支
+  contents: write
 
 jobs:
   build:
@@ -20,11 +20,19 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'   # 可换成 18/22
+          node-version: '22'
           cache: 'npm'
 
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
+          npm install hexo-cli -g
 
       - name: Build Hexo site
         run: |
@@ -36,4 +44,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-
+          publish_branch: gh-pages
+          allow_empty_commit: true
