@@ -122,3 +122,16 @@ symbols_count_time:
   awl: 2
   wpm: 275
   suffix: "mins."
+# mermaid chart
+mermaid: ## mermaid url https://github.com/knsv/mermaid
+  enable: true  # default true
+  version: "7.1.2" # default v7.1.2
+  options:  # find more api options from https://github.com/knsv/mermaid/blob/master/src/mermaidAPI.js
+  #startOnload: true  // default true
+# Markdown渲染
+markdown:
+  render:
+    html: true
+    breaks: false
+    linkify: true
+  plugins:
