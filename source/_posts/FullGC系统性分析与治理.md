@@ -1,22 +1,24 @@
 ---
 title: 深入浅出Full GC：从底层原理到架构优化的全方位治理指南
-top: false
-cover: false
-toc: false
-mathjax: false
-tags: [JVM, GC, 性能优化, 架构治理]
-categories: ['性能优化']
-date: 2025-10-15 10:02:18
-author:
-img:
-coverImg:
-password:
-summary: 频繁FullGC不仅仅是 “JVM 问题”，而是 “架构不合理” 的外在表现.
-keywords: ['FullGC治理']
+date: 2025-10-15 23:00:00
+categories: 
+  - 性能优化
+  - 系统高可用
+tags: 
+  - JVM 
+  - FullGC 
+  - 性能优化
+  - 架构治理
+  - 高可用架构
+cover: /images/api-integration-architecture-cover.webp
+description: 频繁FullGC不仅仅是 “JVM 问题”，而是 “架构不合理” 的外在表现.
+keywords: [高可用架构, 架构治理, 性能优化, FullGC]
+toc: true
+toc_number: true
+comments: true
+copyright: true
 ---
-
 在复杂的后端服务体系中，JVM 的 Full GC（Full Garbage Collection）问题如同潜伏的幽灵，一旦频繁发生，便会导致服务响应延迟飙升、吞吐量骤降，甚至引发整个系统的雪崩。许多开发者谈 "Full GC" 色变，但往往只停留在调整 JVM 参数的层面。真正的技术高手需要具备从底层原理、根因分析到架构优化的全方位治理能力。
-<!--more-->
 本文将以架构师的视角，系统性地带您深入 Full GC 的世界，从理解其触发机制与危害开始，掌握一套从“外部观测”到“四步定位”的标准化排查框架，并最终落地从“应急止血”到“架构升级”的端到端解决方案，助您彻底征服 Full GC 难题。
 
 ## 一、探究底层：Full GC 的触发机制与核心危害
