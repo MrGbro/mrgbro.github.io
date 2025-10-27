@@ -49,21 +49,7 @@ copyright: true
 6. **阶段六：切换与清理 (Switch-over & Cleanup)** - 完成流量的最终切换，并安全下线旧系统。
 
 **标准流程示意图:**
-```mermaid
-graph TD
-    A["分析与设计"] --> B["准备与同步"]
-    B --> C["历史数据迁移"]
-    C --> D["一致性校验"]
-    D --> E["灰度发布与验证"]
-    E --> F["切换与清理"]
-
-    subgraph 持续进行
-        direction LR
-        B --> C
-        C --> D
-        D --> E
-    end
-```
+![](../images/data_trans/2_1.png)
 
 ---
 
