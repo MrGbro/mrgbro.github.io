@@ -33,7 +33,7 @@ copyright: true
 
 ![](../images/thread/2_1.png)
 
-<font style="color:rgb(0, 0, 0);">其中，</font>**<font style="color:rgb(0, 0, 0) !important;">真正的 “重量级” 开销集中在 D 到 G 步骤</font>**<font style="color:rgb(0, 0, 0);">—— 线程本质是 “Java 封装的 OS 调度实体”，而非单纯的语言级对象。这意味着：创建线程不仅是 JVM 堆中分配一个对象，更是向操作系统 “申请调度资源” 的过程。</font>
+<font style="color:rgb(0, 0, 0);">其中，</font>**<font style="color:rgb(0, 0, 0) !important;">真正的 “重量级” 开销集中在pthread_create之后的步骤</font>**<font style="color:rgb(0, 0, 0);">—— 线程本质是 “Java 封装的 OS 调度实体”，而非单纯的语言级对象。这意味着：创建线程不仅是 JVM 堆中分配一个对象，更是向操作系统 “申请调度资源” 的过程。</font>
 
 ### <font style="color:rgb(0, 0, 0);">2.2 内存成本：线程的 “专属资源空间” 有多大？</font>
 <font style="color:rgb(0, 0, 0);">每个线程需要占用多块独立内存区域，且部分区域的大小是 “固定开销”，无法通过 JVM 参数无限压缩。具体内存分布如下表所示：</font>
@@ -103,7 +103,7 @@ copyright: true
 ![](../images/thread/3_2.png)
 
 #### <font style="color:rgb(0, 0, 0);">关键组件的底层逻辑</font>
-1. **<font style="color:rgb(0, 0, 0) !important;">Worker 线程</font>**<font style="color:rgb(0, 0, 0);">：本质是 “线程 + 任务” 的封装，实现了 Runnable 接口，其 run () 方法会调用 </font>`<font style="color:rgba(0, 0, 0, 0.85) !important;">getTask()</font>`<font style="color:rgb(0, 0, 0);"> 循环从队列获取任务。核心源码片段（JDK 17）：</font>**<font style="color:rgba(0, 0, 0, 0.85);"></font>**
+1. **<font style="color:rgb(0, 0, 0) !important;">Worker 线程</font>**<font style="color:rgb(0, 0, 0);">：本质是 “线程 + 任务” 的封装，实现了 Runnable 接口，其 run () 方法会调用 </font><font style="color:rgba(0, 0, 0, 0.85) !important;">getTask()</font><font style="color:rgb(0, 0, 0);"> 循环从队列获取任务。核心源码片段（JDK 17）：</font>**<font style="color:rgba(0, 0, 0, 0.85);"></font>**
 
 ```java
 private Runnable getTask() {
@@ -145,7 +145,7 @@ private Runnable getTask() {
 }
 ```
 
-<font style="color:rgb(0, 0, 0);">这段代码揭示了线程池的 “弹性回收逻辑”：非核心线程会通过</font><font style="color:rgb(0, 0, 0);"> </font>`<font style="color:rgba(0, 0, 0, 0.85) !important;">poll(keepAliveTime)</font>`<font style="color:rgb(0, 0, 0);"> </font><font style="color:rgb(0, 0, 0);">超时等待任务，超时后返回 null，触发 Worker 线程销毁；而核心线程默认通过</font><font style="color:rgb(0, 0, 0);"> </font>`<font style="color:rgba(0, 0, 0, 0.85) !important;">take()</font>`<font style="color:rgb(0, 0, 0);"> </font><font style="color:rgb(0, 0, 0);">无限阻塞，除非开启</font><font style="color:rgb(0, 0, 0);"> </font>`<font style="color:rgba(0, 0, 0, 0.85) !important;">allowCoreThreadTimeOut=true</font>`<font style="color:rgb(0, 0, 0);">。</font>
+<font style="color:rgb(0, 0, 0);">这段代码揭示了线程池的 “弹性回收逻辑”：非核心线程会通过</font><font style="color:rgb(0, 0, 0);"> </font><font style="color:rgba(0, 0, 0, 0.85) !important;">poll(keepAliveTime)</font><font style="color:rgb(0, 0, 0);"> </font><font style="color:rgb(0, 0, 0);">超时等待任务，超时后返回 null，触发 Worker 线程销毁；而核心线程默认通过</font><font style="color:rgb(0, 0, 0);"> </font><font style="color:rgba(0, 0, 0, 0.85) !important;">take()</font><font style="color:rgb(0, 0, 0);"> </font><font style="color:rgb(0, 0, 0);">无限阻塞，除非开启</font><font style="color:rgb(0, 0, 0);"> </font><font style="color:rgba(0, 0, 0, 0.85) !important;">allowCoreThreadTimeOut=true</font><font style="color:rgb(0, 0, 0);">。</font>
 
 2. **<font style="color:rgb(0, 0, 0) !important;">工作队列（Work Queue）</font>**<font style="color:rgb(0, 0, 0);">：是线程池的 “缓冲中枢”，不同队列类型决定了线程池的承载能力与风险：</font>
     - **<font style="color:rgb(0, 0, 0) !important;">ArrayBlockingQueue</font>**<font style="color:rgb(0, 0, 0);">：有界数组队列，需指定容量，适合 “稳定可控” 的场景（如核心业务线程池）；</font>
@@ -163,7 +163,7 @@ private Runnable getTask() {
 
 
 ### <font style="color:rgb(0, 0, 0);">3.3 线程池的架构价值：为何 “task.run ()” 比 “new Thread ().start ()” 快？</font>
-<font style="color:rgb(0, 0, 0);">当线程池中的 Worker 线程执行</font><font style="color:rgb(0, 0, 0);"> </font>`<font style="color:rgba(0, 0, 0, 0.85) !important;">task.run()</font>`<font style="color:rgb(0, 0, 0);"> </font><font style="color:rgb(0, 0, 0);">时，其成本仅是 “方法调用开销”，而非 “线程创建开销”—— 原因在于：</font>
+<font style="color:rgb(0, 0, 0);">当线程池中的 Worker 线程执行</font><font style="color:rgb(0, 0, 0);"> </font><font style="color:rgba(0, 0, 0, 0.85) !important;">task.run()</font><font style="color:rgb(0, 0, 0);"> </font><font style="color:rgb(0, 0, 0);">时，其成本仅是 “方法调用开销”，而非 “线程创建开销”—— 原因在于：</font>
 
 + **<font style="color:rgb(0, 0, 0) !important;">资源已预分配</font>**<font style="color:rgb(0, 0, 0);">：Worker 线程的虚拟机栈、内核栈、TLAB 等资源已在创建时分配，无需重新申请；</font>
 + **<font style="color:rgb(0, 0, 0) !important;">上下文已就绪</font>**<font style="color:rgb(0, 0, 0);">：线程已注册到 OS 调度器，执行任务时无需触发系统调用和上下文切换；</font>
@@ -295,7 +295,7 @@ public class ThreadPoolConfig {
 ```
 
 #### <font style="color:rgb(0, 0, 0);">3. 暴露监控指标</font>
-<font style="color:rgb(0, 0, 0);">在 </font>`<font style="color:rgba(0, 0, 0, 0.85) !important;">application.yml</font>`<font style="color:rgb(0, 0, 0);"> 中配置 Actuator 暴露 Prometheus 指标：</font>
+<font style="color:rgb(0, 0, 0);">在 </font><font style="color:rgba(0, 0, 0, 0.85) !important;">application.yml</font><font style="color:rgb(0, 0, 0);"> 中配置 Actuator 暴露 Prometheus 指标：</font>
 
 ```yaml
 management:
@@ -319,14 +319,14 @@ management:
 
 ### <font style="color:rgb(0, 0, 0);">5.2 线程池最佳实践与避坑指南</font>
 1. **<font style="color:rgb(0, 0, 0) !important;">禁用 Executors 工具类创建线程池</font>**<font style="color:rgb(0, 0, 0);">：</font>
-    - `<font style="color:rgb(0, 0, 0);">Executors.newFixedThreadPool()</font>`<font style="color:rgb(0, 0, 0);">：使用 LinkedBlockingQueue（无界），易 OOM；</font>
-    - `<font style="color:rgb(0, 0, 0);">Executors.newCachedThreadPool()</font>`<font style="color:rgb(0, 0, 0);">：maxPoolSize 为 Integer.MAX_VALUE，易创建大量线程导致 CPU 飙升；</font>
-    - <font style="color:rgb(0, 0, 0);">推荐直接使用</font><font style="color:rgb(0, 0, 0);"> </font>`<font style="color:rgb(0, 0, 0);">ThreadPoolExecutor</font>`<font style="color:rgb(0, 0, 0);"> </font><font style="color:rgb(0, 0, 0);">构造函数，显式指定队列和拒绝策略。</font>
-2. **<font style="color:rgb(0, 0, 0) !important;">线程命名规范</font>**<font style="color:rgb(0, 0, 0);">：线程名需包含 “业务模块 + 线程池类型”（如</font><font style="color:rgb(0, 0, 0);"> </font>`<font style="color:rgba(0, 0, 0, 0.85) !important;">order-executor-0</font>`<font style="color:rgb(0, 0, 0);">），便于通过日志（如 ELK）定位线程相关问题（如线程泄漏、死锁）。</font>
+    - <font style="color:rgb(0, 0, 0);">Executors.newFixedThreadPool()</font><font style="color:rgb(0, 0, 0);">：使用 LinkedBlockingQueue（无界），易 OOM；</font>
+    - <font style="color:rgb(0, 0, 0);">Executors.newCachedThreadPool()</font><font style="color:rgb(0, 0, 0);">：maxPoolSize 为 Integer.MAX_VALUE，易创建大量线程导致 CPU 飙升；</font>
+    - <font style="color:rgb(0, 0, 0);">推荐直接使用</font><font style="color:rgb(0, 0, 0);"> </font><font style="color:rgb(0, 0, 0);">ThreadPoolExecutor</font><font style="color:rgb(0, 0, 0);"> </font><font style="color:rgb(0, 0, 0);">构造函数，显式指定队列和拒绝策略。</font>
+2. **<font style="color:rgb(0, 0, 0) !important;">线程命名规范</font>**<font style="color:rgb(0, 0, 0);">：线程名需包含 “业务模块 + 线程池类型”（如</font><font style="color:rgb(0, 0, 0);"> </font><font style="color:rgba(0, 0, 0, 0.85) !important;">order-executor-0</font><font style="color:rgb(0, 0, 0);">），便于通过日志（如 ELK）定位线程相关问题（如线程泄漏、死锁）。</font>
 3. **<font style="color:rgb(0, 0, 0) !important;">避免线程池共享</font>**<font style="color:rgb(0, 0, 0);">：不同业务的任务需使用独立线程池，避免 “一个业务阻塞导致全线程池耗尽”（参考 4.3 节的隔离方案）。</font>
 4. **<font style="color:rgb(0, 0, 0) !important;">优雅关闭线程池</font>**<font style="color:rgb(0, 0, 0);">：</font>
-    - <font style="color:rgb(0, 0, 0);">关闭时需调用</font><font style="color:rgb(0, 0, 0);"> </font>`<font style="color:rgb(0, 0, 0);">shutdown()</font>`<font style="color:rgb(0, 0, 0);">（而非</font><font style="color:rgb(0, 0, 0);"> </font>`<font style="color:rgb(0, 0, 0);">shutdownNow()</font>`<font style="color:rgb(0, 0, 0);">），允许队列中已有的任务执行完成；</font>
-    - <font style="color:rgb(0, 0, 0);">若需强制关闭，需处理</font><font style="color:rgb(0, 0, 0);"> </font>`<font style="color:rgb(0, 0, 0);">shutdownNow()</font>`<font style="color:rgb(0, 0, 0);"> </font><font style="color:rgb(0, 0, 0);">返回的未执行任务，避免任务丢失；</font>
+    - <font style="color:rgb(0, 0, 0);">关闭时需调用</font><font style="color:rgb(0, 0, 0);"> </font><font style="color:rgb(0, 0, 0);">shutdown()</font><font style="color:rgb(0, 0, 0);">（而非</font><font style="color:rgb(0, 0, 0);"> </font><font style="color:rgb(0, 0, 0);">shutdownNow()</font><font style="color:rgb(0, 0, 0);">），允许队列中已有的任务执行完成；</font>
+    - <font style="color:rgb(0, 0, 0);">若需强制关闭，需处理</font><font style="color:rgb(0, 0, 0);"> </font><font style="color:rgb(0, 0, 0);">shutdownNow()</font><font style="color:rgb(0, 0, 0);"> </font><font style="color:rgb(0, 0, 0);">返回的未执行任务，避免任务丢失；</font>
     - <font style="color:rgb(0, 0, 0);">示例代码:</font>
 
 ```java
@@ -356,7 +356,7 @@ public void shutdownExecutor() {
 ### <font style="color:rgb(0, 0, 0);">6.1 虚拟线程的核心原理：用户态调度的 “轻量级线程”</font>
 <font style="color:rgb(0, 0, 0);">传统 OS 线程（称为 “平台线程”）是 1:1 映射到内核线程的，而虚拟线程是 M:N 映射 —— 多个虚拟线程（M）共享一个平台线程（N，称为 Carrier Thread），调度由 JVM 完成，而非 OS。其核心机制如下：</font>
 
-1. **<font style="color:rgb(0, 0, 0) !important;">Continuation（续体）</font>**<font style="color:rgb(0, 0, 0);">：虚拟线程的执行上下文（如程序计数器、栈帧）由 Continuation 保存，而非内核栈。当虚拟线程执行 IO 操作（如</font><font style="color:rgb(0, 0, 0);"> </font>`<font style="color:rgba(0, 0, 0, 0.85) !important;">Socket.read()</font>`<font style="color:rgb(0, 0, 0);">）时，JVM 会调用</font><font style="color:rgb(0, 0, 0);"> </font>`<font style="color:rgba(0, 0, 0, 0.85) !important;">Continuation.suspend()</font>`<font style="color:rgb(0, 0, 0);"> </font><font style="color:rgb(0, 0, 0);">保存上下文，释放 Carrier Thread；IO 完成后，再通过</font><font style="color:rgb(0, 0, 0);"> </font>`<font style="color:rgba(0, 0, 0, 0.85) !important;">Continuation.resume()</font>`<font style="color:rgb(0, 0, 0);"> </font><font style="color:rgb(0, 0, 0);">恢复上下文，绑定到新的 Carrier Thread 继续执行。</font>
+1. **<font style="color:rgb(0, 0, 0) !important;">Continuation（续体）</font>**<font style="color:rgb(0, 0, 0);">：虚拟线程的执行上下文（如程序计数器、栈帧）由 Continuation 保存，而非内核栈。当虚拟线程执行 IO 操作（如</font><font style="color:rgb(0, 0, 0);"> </font><font style="color:rgba(0, 0, 0, 0.85) !important;">Socket.read()</font><font style="color:rgb(0, 0, 0);">）时，JVM 会调用</font><font style="color:rgb(0, 0, 0);"> </font><font style="color:rgba(0, 0, 0, 0.85) !important;">Continuation.suspend()</font><font style="color:rgb(0, 0, 0);"> </font><font style="color:rgb(0, 0, 0);">保存上下文，释放 Carrier Thread；IO 完成后，再通过</font><font style="color:rgb(0, 0, 0);"> </font><font style="color:rgba(0, 0, 0, 0.85) !important;">Continuation.resume()</font><font style="color:rgb(0, 0, 0);"> </font><font style="color:rgb(0, 0, 0);">恢复上下文，绑定到新的 Carrier Thread 继续执行。</font>
 2. **<font style="color:rgb(0, 0, 0) !important;">ForkJoinPool 作为载体</font>**<font style="color:rgb(0, 0, 0);">：JVM 默认使用 ForkJoinPool 作为 Carrier Thread 池，虚拟线程的调度由 ForkJoinPool 管理。由于 IO 操作会释放 Carrier Thread，一个 ForkJoinPool 线程可调度数千个虚拟线程，大幅提升 IO 密集型任务的并发量。</font>
 3. **<font style="color:rgb(0, 0, 0) !important;">无栈切换开销</font>**<font style="color:rgb(0, 0, 0);">：虚拟线程的上下文切换发生在用户态（JVM 内部），无需触发系统调用和 TLB 刷新，切换成本仅为平台线程的 1/100 左右。</font>
 
