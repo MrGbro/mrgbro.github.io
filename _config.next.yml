@@ -390,7 +390,7 @@ back2top:
   # Back to top in sidebar.
   sidebar: false
   # Scroll percent label in b2t button.
-  scrollpercent: false
+  scrollpercent: true
 
 # Reading progress bar
 reading_progress:
@@ -912,3 +912,10 @@ vendors:
 css: css
 js: js
 images: images
+
+
+# Wechat Subscriber
+#wechat_subscriber:
+#  enabled: false
+#  qcode: /images/wechat.png
+#  description: 欢迎扫描二维码关注公众号一起成长~
