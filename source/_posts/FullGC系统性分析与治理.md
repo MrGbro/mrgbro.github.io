@@ -8,8 +8,6 @@ tags:
   - JVM 
   - FullGC 
   - 性能优化
-  - 架构治理
-  - 高可用架构
 cover: /images/api-integration-architecture-cover.webp
 description: 频繁FullGC不仅仅是 “JVM 问题”，而是 “架构不合理” 的外在表现.
 keywords: [高可用架构, 架构治理, 性能优化, FullGC]
