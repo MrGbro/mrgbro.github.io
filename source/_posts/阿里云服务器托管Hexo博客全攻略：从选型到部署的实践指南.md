@@ -6,7 +6,7 @@ categories:
 tags: 
   - 工具使用
 cover: /images/api-integration-architecture-cover.webp
-description: 本文旨在打破 Java 开发者对线程与线程池的常见误区，确立一条清晰的认知主线：线程是操作系统级的资源单位->线程池是资源治理的架构范式->虚拟线程是调度效率的技术革命。
+description: 本文介绍使用阿里云ECS+Docker+Caddy托管Hexo博客的完整流程，对比静态服务器选型，详解部署步骤，助力开发者快速搭建个人技术博客。
 keywords: [hexo,caddy]
 toc: true
 toc_number: true
