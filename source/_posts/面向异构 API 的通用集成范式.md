@@ -7,7 +7,9 @@ categories:
 tags: 
   - API集成
   - 高可用架构
+  - 微服务
   - 异构系统
+  - 设计模式
 cover: /images/api-integration-architecture-cover.webp
 description: 本文系统性解析异构 API 集成中的高可用架构范式，涵盖 ACL 防腐层、策略模式、限流、熔断、异步降级与可观测性等核心设计策略，并提炼出通用的高可用方法论闭环。
 keywords: [API Integration, High Availability, Resilience, Circuit Breaker, ACL, 微服务]
