@@ -100,9 +100,9 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 # theme: landscape
-#theme: next
+theme: next
 #theme: butterfly
-theme: hexo-theme-matery
+#theme: hexo-theme-matery
 baidu_analytics: f805d322776a5b6125af09800e5aefef
 
 # Deployment
