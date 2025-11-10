@@ -7,7 +7,7 @@ categories:
 tags: 
   - 数据迁移
   - 高可用架构
-cover: /images/api-integration-architecture-cover.webp
+cover: /images/bit_bug.png
 description: 本文以一个常见的数据优化场景——大规模键（大 Key）治理——为切入点，系统性地提炼并提出了一套通用的数据迁移方法论。旨在为开发人员提供一个清晰的行动框架，以从容应对复杂的数据迁移挑战，最终实现平滑、无损且具备回滚能力的“无感”迁移。
 keywords: [高可用架构, 数据迁移, 数据治理, 数据优化, 数据迁移方法论]
 toc: true

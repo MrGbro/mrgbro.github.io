@@ -1,0 +1,153 @@
+favicon: /images/bit_bug.png
+nav:
+  logo: /images/avatar.jpg
+  display_title: true
+  display_post_title: true
+  fixed: false # fixed navigation bar
+post_asset_folder: true
+menu:
+  Home: / || fas fa-home
+  Archives: /archives/ || fas fa-archive
+  Tags: /tags/ || fas fa-tags
+  Categories: /categories/ || fas fa-folder-open
+  List||fas fa-list:
+    Music: /music/ || fas fa-music
+    Movie: /movies/ || fas fa-video
+  Link: /link/ || fas fa-link
+  About: /about/ || fas fa-heart
+#头像
+avatar:
+  img: /images/avatar.jpg
+#  effect: true # 头像会一直转，转的贼快，太鬼畜了
+#顶部图
+default_top_img: /images/index.png
+
+local_search:
+  enable: true
+  # Preload the search data when the page loads.
+  preload: false
+  # Show top n results per article, show all results by setting to -1
+  top_n_per_article: 1
+  # Unescape html strings to the readable one.
+  unescape: true
+  CDN:
+canvas_fluttering_ribbon:
+  enable: true
+  mobile: false # false 手机端不显示 true 手机端显示
+# 点击出现爱心
+click_heart:
+  enable: true
+  mobile: false
+
+# 主页subtitle
+subtitle:
+  enable: true
+  # Typewriter Effect (打字效果)
+  effect: true
+  startDelay: 300 # time before typing starts in milliseconds
+  typeSpeed: 200 # type speed in milliseconds
+  backSpeed: 800 # backspacing speed in milliseconds
+  # loop (循环打字)
+  loop: true
+  # source 调用三方服务
+  # source: false 开关调用
+  # subtitle 会先显示 source , 再显示 sub 的內容
+  source: true
+  # 如果关闭打字效果，subtitle 只会显示 sub 的第一行文字
+  sub:
+    - 自小刺头深草里 &#44; 而今渐觉出蓬蒿
+    - 时人不识凌云木 &#44; 直待凌云始道高
+#加载动画
+preloader:
+  enable: true
+  source: 1 #可选值1=fullpage或2=progress bar，可查看https://codebyzach.github.io/pace/
+  pace_css_url:
+
+runtimeshow:
+  enable: true
+  publish_date: 10/24/2025 23:59:00
+
+# 代码块
+code_blocks:
+  # Code block theme: darker / pale night / light / ocean / false
+  theme: pale night
+  macStyle: false
+  # Code block height limit (unit: px)
+  height_limit: false
+  word_wrap: false
+
+  # Toolbar
+  copy: true
+  language: true
+  # true: shrink the code blocks | false: expand the code blocks | none: expand code blocks and hide the button
+  shrink: false
+  fullpage: false
+
+# 社交图标
+social:
+  fab fa-github: https://github.com/MrGbro || Github || "#hdhfbb"
+  fas fa-envelope: mailto:jt4mrg@gmail.com || Email || "#000000"
+
+cover:
+  # 是否顯示文章封面
+  index_enable: true
+  aside_enable: true
+  archives_enable: true
+  default_cover:
+
+card_author:
+  enable: true
+  description:
+  button:
+    enable: enable
+    icon: fab fa-weixin
+    text: 微信联系我
+    link: /images/wexin.jpg
+
+# --------------------------------------
+# Image Settings
+# --------------------------------------
+
+# The banner image of index page
+index_img: transparent
+# The background image of footer
+footer_img: transparent
+# Website Background
+# Can set it to color or image url
+background: /images/img.png
+# --------------------------------------
+# Index page settings
+# --------------------------------------
+# The height of top_img, eg: 300px/300em/300rem
+index_top_img_height: 400px
+# --------------------------------------
+# Beautify / Effect
+# --------------------------------------
+# Add a mask to the header and footer
+mask:
+  header: false
+
+# --------------------------------------
+# Other Settings
+# --------------------------------------
+
+# Inject
+# Insert the code to head (before '</head>' tag) and the bottom (before '</body>' tag)
+inject:
+  head:
+    - <link rel="stylesheet" href="/css/modify.css">
+
+busuanzi_count:
+  enable: true
+  total_visitors: true
+  total_visitors_icon: fa fa-user
+  total_views: true
+  total_views_icon: fa fa-eye
+  post_views: true
+  post_views_icon: far fa-eye
+
+symbols_count_time:
+  separated_meta: true
+  item_text_post: true
+  item_text_total: false
+

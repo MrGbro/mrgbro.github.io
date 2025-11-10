@@ -6,7 +6,7 @@ categories:
 tags: 
   - Java并发编程
   - 性能优化
-cover: /images/api-integration-architecture-cover.webp
+cover: /images/bit_bug.png
 description: 在多线程并发场景中，线程间的协调与同步是保证系统正确性的核心挑战。传统的 synchronized 关键字作为 Java 早期的同步解决方案，虽然提供了基础的互斥能力，但在复杂并发控制需求下逐渐暴露其局限性。
 keywords: [Java并发编程, 性能优化, 后端架构]
 toc: true
