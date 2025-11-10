@@ -5,7 +5,7 @@ categories:
   - Java并发编程
 tags:
   - Java并发编程
-cover: /images/bit_bug.png
+cover: /images/api-integration-architecture-cover.webp
 description: 本文深入解析ThreadLocal的存储原理、实现细节与架构价值，分析其在数据库连接管理等场景的应用及线程池环境下的数据污染风险，介绍TTL如何解决跨线程传递难题，并给出两者的选型策略与最佳实践。
 keywords: [ Java并发编程 ]
 toc: true
@@ -35,7 +35,7 @@ copyright: true
 ### ThreadLocalMap的内部结构
 ThreadLocalMap是JDK精心设计的定制化哈希表，与HashMap相比有诸多特殊之处：
 
-```java
+```javascript
 static class Entry extends WeakReference<ThreadLocal<?>> {
     Object value;
     Entry(ThreadLocal<?> k, Object v) {

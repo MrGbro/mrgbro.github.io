@@ -6,7 +6,7 @@
 title: Mr.G
 subtitle: '奔赴山海,保持热爱'
 description: '路漫漫其修远兮,吾将上下而求索'
-keywords: [ 'Java','分布式架构','微服务' ]
+keywords: ['Java','分布式架构','微服务']
 author: Mr.G
 language: zh-CN
 timezone: ''
@@ -100,10 +100,8 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 # theme: landscape
-#theme: next
-#theme: butterfly
-theme: hexo-theme-matery
-baidu_analytics: f805d322776a5b6125af09800e5aefef
+theme: next
+#theme: hexo-theme-matery
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment

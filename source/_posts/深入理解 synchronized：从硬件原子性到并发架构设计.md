@@ -6,7 +6,7 @@ categories:
 tags: 
   - Java并发编程
   - 架构思想
-cover: /images/bit_bug.png
+cover: /images/api-integration-architecture-cover.webp
 description: 本文从硬件到架构层层解析 synchronized：揭示其在 CPU 原子性、JMM 内存模型、对象头 Mark Word 及 JVM 锁优化中的机制演化，并探讨其与 AQS 的关系。从底层实现到架构哲学，阐述了并发控制从互斥到协作的设计思想。
 keywords: [Java并发编程]
 toc: true

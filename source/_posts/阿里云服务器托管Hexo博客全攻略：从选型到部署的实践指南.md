@@ -5,7 +5,7 @@ categories:
   - 工具使用
 tags: 
   - 工具使用
-cover: /images/bit_bug.png
+cover: /images/api-integration-architecture-cover.webp
 description: 本文介绍使用阿里云ECS+Docker+Caddy托管Hexo博客的完整流程，对比静态服务器选型，详解部署步骤，助力开发者快速搭建个人技术博客。
 keywords: [hexo,caddy]
 toc: true

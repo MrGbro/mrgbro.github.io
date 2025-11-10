@@ -6,7 +6,7 @@ categories:
 tags: 
   - Java并发编程
   - 性能优化
-cover: /images/bit_bug.png
+cover: /images/api-integration-architecture-cover.webp
 description: 本文旨在打破 Java 开发者对线程与线程池的常见误区，确立一条清晰的认知主线：线程是操作系统级的资源单位->线程池是资源治理的架构范式->虚拟线程是调度效率的技术革命。
 keywords: [Java并发编程, 性能优化, 后端架构]
 toc: true
