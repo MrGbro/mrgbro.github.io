@@ -2,12 +2,13 @@
 title: 你的 MCP Server 为什么不好用？一份从踩坑到生产的 Java 实战指南
 date: 2026-03-26 23:30:00
 categories: 
-  - LLM
+  - 架构设计
 tags: 
   - Agent
   - LLM
+  - MCP
 cover: /images/api-integration-architecture-cover.webp
-description: 本文从Mcp是什么，如何开发一个可用的 MCP Server，以及如何开发一个可用的 MCP Server，以及如何在生产环境稳定运行的 Server，以及如何在生产环境做更好这三个方面系统介绍MCP Server
+description: 30 个 Tool 注册后 Agent 频繁调错？本地测试完美上线就崩？本文从 MCP 架构本质、Java 工程实践到生产级优化，揭秘从 Demo 到稳定服务的完整路径。不止讲原理，更教你避坑治理、多域隔离、全链路追踪等实战技巧，让 MCP Server 真正可用、好用、稳用。
 keywords: [Agent, LLM]
 toc: true
 toc_number: true
@@ -775,7 +776,7 @@ public class ToolCallLoggingAspect {
 - Tool 列表变化时，通过 `notifications/tools/list_changed` 通知客户端
 
 ### 11. 多域隔离：企业级的必经之路
-![](../images/mcp/5。png.png)
+![](../images/mcp/5.png)
 
 当你的 MCP Server 需要服务多个业务域——比如内部的不同产品线需要暴露不同的 Tool 集合、不同的权限策略——单域架构就不够了。
 
